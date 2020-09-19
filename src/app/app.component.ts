@@ -13,12 +13,10 @@ export class AppComponent implements OnInit {
     import('../../wasm/pkg/rust_wasm_part')
       .then(native => {
         native.greet();
-        return native.fetchParse('LironHazan/angular-rust-wasm');
+        return native.queryBand('audioslave');
       })
       .then((data) => {
         console.log(data);
-        console.log('The latest commit to the angular-rust-wasm %s branch is:', data.name);
-        console.log('%s, authored by %s <%s>', data.commit.sha, data.commit.commit.author.name, data.commit.commit.author.email);
       });
   }
 }
