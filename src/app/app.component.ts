@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
     import('../../wasm/pkg/rust_wasm_part')
       .then(native => {
         native.greet();
-        return native.run('LironHazan/angular-rust-wasm');
+        return native.fetchParse('LironHazan/angular-rust-wasm');
       })
       .then((data) => {
         console.log(data);
