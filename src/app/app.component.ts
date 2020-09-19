@@ -12,7 +12,13 @@ export class AppComponent implements OnInit {
     // POC
     import('../../wasm/pkg/rust_wasm_part')
       .then(native => {
-      native.greet();
-    });
+        native.greet();
+        return native.run('LironHazan/angular-rust-wasm');
+      })
+      .then((data) => {
+        console.log(data);
+        console.log('The latest commit to the angular-rust-wasm %s branch is:', data.name);
+        console.log('%s, authored by %s <%s>', data.commit.sha, data.commit.commit.author.name, data.commit.commit.author.email);
+      });
   }
 }
