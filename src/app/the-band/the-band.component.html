@@ -1,1 +1,10 @@
-<div> {{ band | json }}</div>
+<img [src]="(band$ | async)?.strArtistBanner">
+<div class="text">
+  <div class="info">
+    <div class="item"> {{ (band$ | async)?.strArtist}} </div>
+    <div class="item"> {{ (band$ | async)?.strGenre}} </div>
+    <div class="item"> {{ (band$ | async)?.intFormedYear}} </div>
+  </div>
+  <div class="bio"> {{ (band$ | async)?.strBiographyEN}} </div>
+</div>
+

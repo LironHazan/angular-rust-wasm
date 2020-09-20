@@ -1,4 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import {defer, Observable} from 'rxjs';
+
+interface Artist {
+  strArtist: string;
+  intFormedYear: string;
+  strBiographyEN: string;
+  strGenre: string;
+  intMembers: string;
+  strArtistBanner: string;
+}
 
 @Component({
   selector: 'app-the-band',
@@ -6,20 +16,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./the-band.component.css']
 })
 export class TheBandComponent implements OnInit {
-
-  band;
-  constructor() { }
+  band: Artist;
+  band$: Observable<Artist>;
 
   ngOnInit(): void {
-    import('../../../wasm/pkg/rust_wasm_part')
-      .then(native => {
-        native.greet();
-        return native.query_band('audioslave');
-      })
-      .then((data) => {
-        this.band = data;
-        console.log(data);
-      });
+    this.band$ = this.getTheBand$('היהודים');
+  }
+
+  private async getTheBand(name: string): Promise<Artist> {
+    const artist = await import('../../../wasm/pkg/rust_wasm_part');
+    return artist.query_band(name);
+  }
+
+  getTheBand$(name): Observable<Artist> {
+    return defer(() => this.getTheBand(name));
   }
 
 }

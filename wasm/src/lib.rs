@@ -13,18 +13,7 @@ use crate::artists::ArtistInfo;
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-#[wasm_bindgen]
-extern {
-    fn alert(s: &str);
-}
-
-#[wasm_bindgen]
-pub fn greet() {
-    alert("Hello, rust-wasm-part!");
-}
-
 // Following POC inspired by https://github.com/rustwasm/wasm-bindgen/tree/master/examples/fetch
-
 #[wasm_bindgen]
 pub async fn query_band(name: String) -> Result<JsValue, JsValue> {
   let mut opts = RequestInit::new();
@@ -50,7 +39,6 @@ pub async fn query_band(name: String) -> Result<JsValue, JsValue> {
   // Use serde to parse the JSON into a struct.
   let info: ArtistInfo = json.into_serde().unwrap();
   let artist = info.artists.first();
-
 
   // Send struct back to JS as an `Object`.
   Ok(JsValue::from_serde(&artist).unwrap())

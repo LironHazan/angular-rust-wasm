@@ -6,7 +6,8 @@ pub struct Artist { // using camelCase instead of snake_case due to the API
     pub intFormedYear: String,
     pub strBiographyEN: String,
     pub strGenre: String,
-    pub intMembers: String
+    pub intMembers: String,
+    pub strArtistBanner: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
